@@ -9,7 +9,6 @@ import cl.mti.tesina.analisis.dto.ResultadoSentimiento;
 public interface AnalizadorSentimientosService
 {
 	ResultadoSentimiento procesar(String texto, String idioma);
-
 	ResultadoSentimiento procesar(String texto);
-
+	int getIdMotor();
 }

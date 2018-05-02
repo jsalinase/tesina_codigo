@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TesinaApplication
+public class TesinaAnalisisApplication
 {
 	public static void main(String[] args)
 	{
-		SpringApplication.run(TesinaApplication.class, args);
+		SpringApplication.run(TesinaAnalisisApplication.class, args);
 	}
 }

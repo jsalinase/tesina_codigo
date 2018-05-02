@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import cl.mti.tesina.analisis.dto.CodigosResultados;
+import cl.mti.tesina.analisis.dto.Idiomas;
 import cl.mti.tesina.analisis.dto.ResultadoSentimiento;
 import cl.mti.tesina.analisis.dto.Sentimiento;
 import cl.mti.tesina.analisis.services.AnalizadorSentimientosService;
@@ -64,17 +65,17 @@ public class StanfordNLPSentimientosServiceImpl implements AnalizadorSentimiento
 			if ((mainSentiment == 0) || (mainSentiment == 1))
 			{
 				resultado.setSentimiento(Sentimiento.NEGATIVO);
-				resultado.setNegativo((float)mainSentiment);
+				resultado.setNegativo((float) mainSentiment);
 			}
 			else if ((mainSentiment == 3) || (mainSentiment == 4))
 			{
 				resultado.setSentimiento(Sentimiento.POSITIVO);
-				resultado.setPositivo((float)mainSentiment);
+				resultado.setPositivo((float) mainSentiment);
 			}
 			else if (mainSentiment == 0)
 			{
 				resultado.setSentimiento(Sentimiento.NEUTRAL);
-				resultado.setNeutral((float)mainSentiment);
+				resultado.setNeutral((float) mainSentiment);
 			}
 			else
 			{
@@ -92,7 +93,13 @@ public class StanfordNLPSentimientosServiceImpl implements AnalizadorSentimiento
 	@Override
 	public ResultadoSentimiento procesar(String texto)
 	{
-		return procesar(texto, "en");
+		return procesar(texto, Idiomas.INGLES);
+	}
+
+	@Override
+	public int getIdMotor()
+	{
+		return 1;
 	}
 
 }

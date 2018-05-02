@@ -15,11 +15,12 @@ import com.amazonaws.services.comprehend.model.DetectSentimentResult;
 import com.amazonaws.services.comprehend.model.DominantLanguage;
 
 import cl.mti.tesina.analisis.dto.CodigosResultados;
+import cl.mti.tesina.analisis.dto.Idiomas;
 import cl.mti.tesina.analisis.dto.ResultadoSentimiento;
 import cl.mti.tesina.analisis.dto.Sentimiento;
 import cl.mti.tesina.analisis.services.AnalizadorSentimientosService;
 
-@Component("amazonComprehendSentimientosService")
+//@Component("amazonComprehendSentimientosService")
 public class AmazonComprehendSentimientosServiceImpl implements AnalizadorSentimientosService
 {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -101,7 +102,7 @@ public class AmazonComprehendSentimientosServiceImpl implements AnalizadorSentim
 	{
 		DetectDominantLanguageRequest request = new DetectDominantLanguageRequest().withText(texto);
 		DetectDominantLanguageResult response = clienteComprehend.detectDominantLanguage(request);
-		String lenguaje = "en";
+		String lenguaje = Idiomas.INGLES;
 		if (response != null)
 		{
 			Float score = 0f;
@@ -115,6 +116,12 @@ public class AmazonComprehendSentimientosServiceImpl implements AnalizadorSentim
 			}
 		}
 		return procesar(texto, lenguaje);
+	}
+
+	@Override
+	public int getIdMotor()
+	{
+		return 0;
 	}
 
 }
