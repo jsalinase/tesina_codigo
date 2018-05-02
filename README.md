@@ -26,5 +26,9 @@ Está el codigo que permite analizar las noticias en su formato ya limpio a trav
 
 ### tesina_python
 
-Está el codigo que permite analizar las noticias en su formato ya limpio a traves de TextBlob con Python"# tesina_codigo" 
-"# tesina_codigo" 
+Está el codigo que permite analizar las noticias en su formato ya limpio a traves de TextBlob con Python.
+
+
+### tesina_pricing
+
+Está el codigo que permite calcular el costo del uso de Amazon Comprehend para el set de datos que contienen noticias de interés.
