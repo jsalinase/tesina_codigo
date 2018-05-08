@@ -72,7 +72,7 @@ public class StanfordNLPSentimientosServiceImpl implements AnalizadorSentimiento
 				resultado.setSentimiento(Sentimiento.POSITIVO);
 				resultado.setPositivo((float) mainSentiment);
 			}
-			else if (mainSentiment == 0)
+			else if (mainSentiment == 2)
 			{
 				resultado.setSentimiento(Sentimiento.NEUTRAL);
 				resultado.setNeutral((float) mainSentiment);

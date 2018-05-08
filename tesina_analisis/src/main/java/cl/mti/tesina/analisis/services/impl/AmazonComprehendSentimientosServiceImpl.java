@@ -20,7 +20,7 @@ import cl.mti.tesina.analisis.dto.ResultadoSentimiento;
 import cl.mti.tesina.analisis.dto.Sentimiento;
 import cl.mti.tesina.analisis.services.AnalizadorSentimientosService;
 
-//@Component("amazonComprehendSentimientosService")
+@Component("amazonComprehendSentimientosService")
 public class AmazonComprehendSentimientosServiceImpl implements AnalizadorSentimientosService
 {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -42,9 +42,9 @@ public class AmazonComprehendSentimientosServiceImpl implements AnalizadorSentim
 	{
 		log.debug("Llamando a API de Sentimientos");
 
-		if (texto.length() > 5000)
+		while (texto.getBytes().length > 5000)
 		{
-			texto = texto.substring(0, 4950);
+			texto = texto.substring(0, texto.length() - 1);
 		}
 
 		log.debug("Largo Request: " + texto.length());

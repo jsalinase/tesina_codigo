@@ -77,7 +77,7 @@ public class EstimadorCostoCommandLineRunner implements CommandLineRunner
 			}
 		}
 
-		log.info("Total USD: " + (cantidadTotalUnidades * 0.00005));
+		log.info("Total USD: " + (cantidadTotalUnidades * 0.0001));
 
 	}
 

@@ -2,11 +2,10 @@ package cl.mti.tesina.analisis.workers;
 
 import java.util.Optional;
 
+import org.python.jline.internal.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import cl.mti.tesina.analisis.dto.CodigosResultados;
@@ -16,16 +15,15 @@ import cl.mti.tesina.analisis.dto.ResultadoSentimiento;
 import cl.mti.tesina.analisis.entities.Errores;
 import cl.mti.tesina.analisis.entities.Noticias;
 import cl.mti.tesina.analisis.entities.Sentimientos;
-import cl.mti.tesina.analisis.entities.Stocks;
 import cl.mti.tesina.analisis.repositories.ErroresRepository;
 import cl.mti.tesina.analisis.repositories.NoticiasRepository;
 import cl.mti.tesina.analisis.repositories.SentimientosRepository;
 import cl.mti.tesina.analisis.repositories.StocksRepository;
 import cl.mti.tesina.analisis.services.AnalizadorSentimientosService;
 
-@Component("workerStanford")
+@Component("workerStanfordErrores")
 @Scope("prototype")
-public class WorkerStanford implements Runnable
+public class WorkerStanfordErrores implements Runnable
 {
 	@Autowired
 	@Qualifier("stanfordNlpSentimientosService")
@@ -40,25 +38,18 @@ public class WorkerStanford implements Runnable
 	private StocksRepository stocksRepository;
 
 	private Estadisticas estadisticas;
-	private volatile int tamanoPagina;
-	private volatile int numeroPagina;
+	private volatile int idNoticia;
 
 	@Override
 	public void run()
 	{
-		PageRequest request = PageRequest.of(numeroPagina, tamanoPagina);
-
-		Page<Stocks> paginaNoticias = stocksRepository.findAll(request);
-
-		for (Stocks a : paginaNoticias)
+		estadisticas.incrementLeidos();
+		Optional<Noticias> n = noticiasRepository.findById(idNoticia);
+		if (n.isPresent())
 		{
-			estadisticas.incrementLeidos();
-			Optional<Noticias> n = noticiasRepository.findById(a.getStocksId().getId());
-			if (n.isPresent())
-			{
-				procesar(n.get());
-			}
+			procesar(n.get());
 		}
+
 	}
 
 	private void procesar(Noticias n)
@@ -82,17 +73,7 @@ public class WorkerStanford implements Runnable
 		}
 		else
 		{
-			try
-			{
-				Errores e = new Errores();
-				e.setId(n.getId());
-				erroresRepository.save(e);
-				estadisticas.incrementErrores();
-			}
-			catch (Exception ex)
-			{
-
-			}
+			Log.error("Error Procesando Noticia: " + idNoticia);
 		}
 
 	}
@@ -107,24 +88,15 @@ public class WorkerStanford implements Runnable
 		this.estadisticas = estadisticas;
 	}
 
-	public int getTamanoPagina()
+	public int getIdNoticia()
 	{
-		return tamanoPagina;
+		return idNoticia;
 	}
 
-	public void setTamanoPagina(int tamanoPagina)
+	public void setIdNoticia(int idNoticia)
 	{
-		this.tamanoPagina = tamanoPagina;
+		this.idNoticia = idNoticia;
 	}
 
-	public int getNumeroPagina()
-	{
-		return numeroPagina;
-	}
-
-	public void setNumeroPagina(int numeroPagina)
-	{
-		this.numeroPagina = numeroPagina;
-	}
-
+	
 }

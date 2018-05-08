@@ -12,11 +12,12 @@ public class Estadisticas
 	private volatile int leidos;
 	private volatile int grabados;
 	private volatile int errores;
+	private volatile int existentes;
 
 	public synchronized void incrementLeidos()
 	{
 		leidos++;
-		if (leidos % 1000 == 0)
+		if (leidos % 100 == 0)
 		{
 			log.info(this + "");
 		}
@@ -30,6 +31,21 @@ public class Estadisticas
 	public synchronized void incrementGrabados()
 	{
 		grabados++;
+	}
+
+	public synchronized void incrementExistentes()
+	{
+		existentes++;
+	}
+
+	public int getExistentes()
+	{
+		return existentes;
+	}
+
+	public void setExistentes(int existentes)
+	{
+		this.existentes = existentes;
 	}
 
 	public int getLeidos()
@@ -65,7 +81,7 @@ public class Estadisticas
 	@Override
 	public String toString()
 	{
-		return "Leidos=" + leidos + ", Grabados=" + grabados + ", Errores=" + errores;
+		return "Leidos=" + leidos + ", Grabados=" + grabados + ", Errores=" + errores + ", Existentes=" + existentes;
 	}
 
 }
