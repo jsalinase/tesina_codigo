@@ -20,7 +20,7 @@ public class VocalesMultiplesCleanser implements Cleanser
 		{
 			if (texto != null)
 			{
-				texto = texto.replaceAll("(.)\\1+", "$1");
+				texto = texto.replaceAll("(.)\\1{3,}", "$1");
 			}
 		}
 		catch (Exception ex)
@@ -29,5 +29,4 @@ public class VocalesMultiplesCleanser implements Cleanser
 		}
 		return texto;
 	}
-
 }
