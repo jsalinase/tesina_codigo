@@ -24,11 +24,19 @@ Contiene reglas de limpiado de informacion poco relevante para el analisis de se
 
 Está el codigo que permite analizar las noticias en su formato ya limpio a traves de Amazon Comprehend y Core-NLP de Stanford
 
+### tesina_opinionfinder
+
+Está el codigo que usa Opinion Finder para procesar las noticias.
+
 ### tesina_python
 
-Está el codigo que permite analizar las noticias en su formato ya limpio a traves de TextBlob con Python.
+Está el codigo que permite analizar las noticias en su formato ya limpio a traves de TextBlob y Vader con Python.
 
 
 ### tesina_pricing
 
 Está el codigo que permite calcular el costo del uso de Amazon Comprehend para el set de datos que contienen noticias de interés.
+
+### tesina_hipotesis
+
+Está el código que calcula la variación positiva o negativa de la accion en el periodo de tiempo indicado por las noticias que superan un umbral.
